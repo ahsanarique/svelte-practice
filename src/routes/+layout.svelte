@@ -14,10 +14,6 @@
   <slot />
 </main>
 
-<footer>
-  <h6 class="p-3 bg-yellow-300 text-center">Footer</h6>
-</footer>
-
 <style lang="postcss">
   :global(html) {
     background-color: theme(colors.gray.100);
