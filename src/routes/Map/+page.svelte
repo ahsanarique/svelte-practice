@@ -1,1 +1,5 @@
-<h1>Map Page</h1>
+<script>
+    import MapComponent from "../../components/map/MapComponent.svelte";
+</script>
+
+<MapComponent />

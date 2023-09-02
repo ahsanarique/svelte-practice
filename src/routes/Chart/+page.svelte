@@ -1,1 +1,5 @@
-<h1>Chart Page</h1>
+<script>
+    import ChartComponent from "../../components/chart/ChartComponent.svelte";
+</script>
+
+<ChartComponent />

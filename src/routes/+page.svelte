@@ -1,8 +1,6 @@
-<h1 class="text-3xl font-bold">Layout Page</h1>
+<script>
+  import LayoutComponent from "../components/layout/LayoutComponent.svelte";
+</script>
 
+<LayoutComponent />
 
-<style lang="postcss">
-  :global(html) {
-    background-color: theme(colors.gray.100);
-  }
-</style>
