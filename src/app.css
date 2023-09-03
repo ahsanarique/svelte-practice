@@ -3,6 +3,32 @@
 @tailwind utilities;
 
 
+html {
+    --slate-400: #94a3b8;
+    --slate-200: #e2e8f0;
+}
+
 .layout-page > .grid {
     min-height: calc(100vh - 48px);
 }
+
+::-webkit-scrollbar {
+    background: var(--slate-200);
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-corner {
+    background: var(--slate-200);
+    border-color: var(--slate-200);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--slate-400);
+  }
+  
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: var(--slate-200);
+  }
