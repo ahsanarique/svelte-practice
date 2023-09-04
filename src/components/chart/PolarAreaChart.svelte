@@ -1,13 +1,13 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
+  import { afterUpdate, onDestroy, beforeUpdate } from "svelte";
   import { Chart } from "chart.js/auto";
+  import { countries } from "../../store/countryDataStore";
 
-  export let chartData;
   let polarChartData = [];
-  let ctx;
-  let chartCanvas;
 
-  const unsubscribe = chartData.subscribe((value) => {
+  let polarAreaChart;
+
+  const unsubscribe = countries.subscribe((value) => {
     const sortedByPopulation = value.sort(
       (a, b) => b.population - a.population
     );
@@ -16,46 +16,64 @@
   });
 
   const updateCanvas = () => {
-    ctx = chartCanvas.getContext("2d");
+    const ctx = document.getElementById("polar-area-chart")
+      ? document.getElementById("polar-area-chart").getContext("2d")
+      : "";
 
-    let polarAreaChart = new Chart(ctx, {
-      type: "polarArea",
+    if (polarChartData.length > 0 && ctx) {
+      polarAreaChart = new Chart(ctx, {
+        type: "polarArea",
 
-      data: {
-        labels: polarChartData.map((country) => country.name.common),
-        datasets: [
-          {
-            data: polarChartData.map((country) => country.population),
-            backgroundColor: [
-              "#5eead4",
-              "#67e8f9",
-              "#93c5fd",
-              "#a5b4fc",
-              "#c4b5fd",
-              "#f0abfc",
-              "#f9a8d4",
-              "#fda4af",
-              "#fdba74",
-              "#fca5a5",
-            ],
-          },
-        ],
-      },
+        data: {
+          labels: polarChartData.map((country) => country.name.common),
+          datasets: [
+            {
+              data: polarChartData.map((country) => country.population),
+              backgroundColor: [
+                "#5eead4",
+                "#67e8f9",
+                "#93c5fd",
+                "#a5b4fc",
+                "#c4b5fd",
+                "#f0abfc",
+                "#f9a8d4",
+                "#fda4af",
+                "#fdba74",
+                "#fca5a5",
+              ],
+            },
+          ],
+        },
 
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      },
-    });
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      });
+    }
   };
 
-  onMount(() => {
+  beforeUpdate(() => {
+    if(polarAreaChart) {
+      polarAreaChart.destroy();
+    }
+  })
+
+  afterUpdate(() => {
     updateCanvas();
   });
 
   onDestroy(unsubscribe);
+
+  onDestroy(() => {
+    if (polarAreaChart) {
+      polarAreaChart.destroy()
+    }
+  })
 </script>
 
 <div class="p-2 country-chart bg-white">
-  <canvas bind:this={chartCanvas} width="400" height="400" />
+  {#if polarChartData.length > 0}
+    <canvas id="polar-area-chart" width="400" height="400" />
+  {/if}
 </div>

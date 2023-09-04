@@ -28,12 +28,18 @@
             <td>{country.cioc || "-"}</td>
             <td>{country.status || "-"}</td>
             <td>
-              {country.currencies ? Object.values(country.currencies)
-                .map(({ name }) => name)
-                .join(", ") : "-"}
+              {country.currencies
+                ? Object.values(country.currencies)
+                    .map(({ name }) => name)
+                    .join(", ")
+                : "-"}
             </td>
             <td>{country.population.toLocaleString() || "-"}</td>
-            <td>{country.languages ? Object.values(country.languages).join(', ') : "-"} </td>
+            <td
+              >{country.languages
+                ? Object.values(country.languages).join(", ")
+                : "-"}
+            </td>
           </tr>
         {/each}
       </tbody>
